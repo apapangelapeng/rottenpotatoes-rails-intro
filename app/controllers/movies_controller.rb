@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     if check_boxes.nil?:
       @movies = Movie.all
     else:
-      Movie.with_ratings(@ratings_to_show)
+      @movies = Movie.with_ratings(@ratings_to_show)
   end
 
   def new
