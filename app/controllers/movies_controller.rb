@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
   def index
     checked_box = params[:ratings]
     sorted = params[:sort]||session[:sort]
-    if check_boxes.nil:
+    if check_boxes.nil?:
       @ratings_to_show = []
     else:
       @ratings_to_show = check_boxes.keys
@@ -53,7 +53,6 @@ class MoviesController < ApplicationController
      
    def self.all_ratings 
      @all_ratings
-   
    end 
  end
   
