@@ -7,21 +7,20 @@ class MoviesController < ApplicationController
   end
 
   def index
-    checked_box = params[:ratings]
-    sorted = params[:sort]||session[:sort]
-    if check_boxes.nil?:
+    check_boxes = params[:ratings]
+    if check_boxes.nil?
       @ratings_to_show = []
-    else:
+    else
       @ratings_to_show = check_boxes.keys
     end
-
-    if check_boxes.nil?:
+    if check_boxes.nil?
       @movies = Movie.all
-    else:
+    else
       @movies = Movie.with_ratings(@ratings_to_show)
     end
-    @movies = movies.order(sorted)
     @all_ratings = Movie.all_ratings
+    sort = params[:sort]
+    @movies =@movies.order(sort)
   end
 
   def new
@@ -45,16 +44,6 @@ class MoviesController < ApplicationController
     redirect_to movie_path(@movie)
   end
 
-  class Movie < ActiveRecord::Base
-    @all_rating = ["G","PG","PG-13","R","NC-17"]
-    def self.with_ratings(ratings_list)
-      Movie.where(rating:rating_list)
-    end
-     
-   def self.all_ratings 
-     @all_ratings
-   end 
- end
   
   def destroy
     @movie = Movie.find(params[:id])
